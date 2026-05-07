@@ -11,9 +11,7 @@
 
 ## Screenshots
 
-<!-- Drop your screenshots into the `assets/` folder and uncomment the image below. -->
-<!-- ![Main window](assets/screenshot-main.png) -->
-_Screenshots coming soon._
+![Main window](assets/screenshot-main.png)
 
 ## Features
 
@@ -88,18 +86,25 @@ The app reads `~/Library/Application Support/com.mitchellh.ghostty/config.ghostt
 ```
 GhosttyThemeSwitcher/
 ├── Sources/
-│   └── GhosttyThemeSwitcher/    # SwiftUI app + CLI entry point
+│   └── GhosttyThemeSwitcher/         # SwiftUI app + CLI entry point
+│       └── Resources/
+│           └── themes.json           # Theme data
 ├── Tests/
 │   └── GhosttyThemeSwitcherTests/
 ├── tools/
-│   ├── build_app.sh             # Builds the .app bundle into dist/
+│   ├── build_app.sh                  # Builds the .app bundle into dist/
 │   ├── build_icon.sh
 │   ├── Info.plist
+│   ├── AppIcon.icns
+│   ├── AppIcon.png
 │   └── AppIcon.iconset/
-├── assets/                      # Screenshots for the README
+├── assets/
+│   └── screenshot-main.png           # Screenshot used in the README
 ├── Package.swift
+├── README.md
+├── README.zh-CN.md
 ├── LICENSE
-└── README.md
+└── .gitignore
 ```
 
 ## Contributing

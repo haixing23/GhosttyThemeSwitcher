@@ -11,9 +11,7 @@
 
 ## 截图
 
-<!-- 把截图放进 `assets/` 文件夹，再取消下面这行的注释。 -->
-<!-- ![主界面](assets/screenshot-main.png) -->
-_截图稍后补上。_
+![主界面](assets/screenshot-main.png)
 
 ## 特性
 
@@ -88,18 +86,25 @@ App 会读取 `~/Library/Application Support/com.mitchellh.ghostty/config.ghostt
 ```
 GhosttyThemeSwitcher/
 ├── Sources/
-│   └── GhosttyThemeSwitcher/    # SwiftUI 界面 + CLI 入口
+│   └── GhosttyThemeSwitcher/         # SwiftUI 界面 + CLI 入口
+│       └── Resources/
+│           └── themes.json           # 主题数据
 ├── Tests/
 │   └── GhosttyThemeSwitcherTests/
 ├── tools/
-│   ├── build_app.sh             # 把 .app 打包到 dist/
+│   ├── build_app.sh                  # 把 .app 打包到 dist/
 │   ├── build_icon.sh
 │   ├── Info.plist
+│   ├── AppIcon.icns
+│   ├── AppIcon.png
 │   └── AppIcon.iconset/
-├── assets/                      # README 用的截图
+├── assets/
+│   └── screenshot-main.png           # README 截图
 ├── Package.swift
+├── README.md
+├── README.zh-CN.md
 ├── LICENSE
-└── README.md
+└── .gitignore
 ```
 
 ## 参与贡献
