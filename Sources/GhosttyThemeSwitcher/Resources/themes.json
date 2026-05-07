@@ -1,0 +1,70 @@
+[
+  {
+    "id": "latte",
+    "title": "Latte",
+    "ghosttyThemeName": "Catppuccin Latte",
+    "background": "#EFF1F5",
+    "surface": "#E6E9EF",
+    "overlay": "#CCD0DA",
+    "text": "#4C4F69",
+    "subtext": "#6C6F85",
+    "accent": "#1E66F5",
+    "palette": [
+      "#DC8A78", "#DD7878", "#EA76CB", "#8839EF",
+      "#D20F39", "#FE640B", "#DF8E1D", "#40A02B",
+      "#179299", "#04A5E5", "#1E66F5", "#7287FD",
+      "#6C6F85", "#9CA0B0", "#CCD0DA", "#EFF1F5"
+    ]
+  },
+  {
+    "id": "frappe",
+    "title": "Frappe",
+    "ghosttyThemeName": "Catppuccin Frappe",
+    "background": "#303446",
+    "surface": "#414559",
+    "overlay": "#626880",
+    "text": "#C6D0F5",
+    "subtext": "#A5ADCE",
+    "accent": "#8CAAEE",
+    "palette": [
+      "#EBA0AC", "#EA999C", "#F4B8E4", "#CA9EE6",
+      "#E78284", "#EF9F76", "#E5C890", "#A6D189",
+      "#81C8BE", "#99D1DB", "#8CAAEE", "#BABBF1",
+      "#737994", "#838BA7", "#B5BFE2", "#303446"
+    ]
+  },
+  {
+    "id": "macchiato",
+    "title": "Macchiato",
+    "ghosttyThemeName": "Catppuccin Macchiato",
+    "background": "#24273A",
+    "surface": "#363A4F",
+    "overlay": "#6E738D",
+    "text": "#CAD3F5",
+    "subtext": "#A5ADCB",
+    "accent": "#8AADF4",
+    "palette": [
+      "#F0C6C6", "#EE99A0", "#F5BDE6", "#C6A0F6",
+      "#ED8796", "#F5A97F", "#EED49F", "#A6DA95",
+      "#8BD5CA", "#91D7E3", "#8AADF4", "#B7BDF8",
+      "#8087A2", "#939AB7", "#CAD3F5", "#24273A"
+    ]
+  },
+  {
+    "id": "mocha",
+    "title": "Mocha",
+    "ghosttyThemeName": "Catppuccin Mocha",
+    "background": "#1E1E2E",
+    "surface": "#313244",
+    "overlay": "#6C7086",
+    "text": "#CDD6F4",
+    "subtext": "#A6ADC8",
+    "accent": "#89B4FA",
+    "palette": [
+      "#F2CDCD", "#EBA0AC", "#F5C2E7", "#CBA6F7",
+      "#F38BA8", "#FAB387", "#F9E2AF", "#A6E3A1",
+      "#94E2D5", "#89DCEB", "#89B4FA", "#B4BEFE",
+      "#7F849C", "#9399B2", "#CDD6F4", "#1E1E2E"
+    ]
+  }
+]
