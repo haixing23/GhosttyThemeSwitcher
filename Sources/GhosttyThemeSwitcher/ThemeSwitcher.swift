@@ -501,7 +501,7 @@ struct ContentView: View {
                     .font(.system(size: 10, weight: .bold))
                     .opacity(0.7)
             }
-            .foregroundStyle(Color.white)
+            .foregroundStyle(Color.white.opacity(0.9))
             .padding(.horizontal, 16)
             .padding(.vertical, 11)
             .background(
@@ -509,8 +509,8 @@ struct ContentView: View {
                     .fill(Color.white.opacity(0.08))
             )
         }
-        .menuStyle(.borderlessButton)
         .menuIndicator(.hidden)
+        .buttonStyle(.plain)
         .fixedSize()
     }
 }

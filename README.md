@@ -24,14 +24,18 @@
 ## Requirements
 
 - macOS 13 (Ventura) or newer
+- Apple Silicon Mac
 - [Ghostty](https://ghostty.org/) installed in `/Applications`
 
 ## Install
 
 ### Option 1 — Download a release
 
-1. Grab the latest `.zip` from the [Releases](../../releases) page.
-2. Unzip it and drag **Ghostty Theme Switcher.app** into `/Applications`.
+1. Grab the latest Apple Silicon release from the [Releases](../../releases) page.
+2. Download either the `.dmg` or `.zip` artifact. You do **not** need Xcode, Swift, or any other developer tools.
+3. Move **Ghostty Theme Switcher.app** into `/Applications`.
+   - If you downloaded the `.dmg`, drag the app onto the `Applications` shortcut in the mounted window.
+   - If you downloaded the `.zip`, unzip it first and then drag the app into `/Applications`.
 3. **First launch:** because this app isn't signed by an Apple-paid Developer ID, macOS will block it the first time. Don't double-click it — instead:
    - Open `/Applications` in Finder
    - **Right-click** (or hold `Control` and click) on **Ghostty Theme Switcher**
@@ -45,6 +49,8 @@
 > ```
 > Then try opening it again.
 
+> **Architecture:** current release builds are for **Apple Silicon** (`arm64`) Macs running macOS 13 or newer.
+
 ### Option 2 — Build from source
 
 ```sh
@@ -56,6 +62,19 @@ open dist/Ghostty\ Theme\ Switcher.app
 
 The bundled app appears in `dist/`.
 
+To produce the release-ready `.app`, `.zip`, and `.dmg` artifacts in one step:
+
+```sh
+zsh tools/build_release.sh
+```
+
+That script runs tests first, then emits versioned artifacts such as:
+
+```text
+dist/GhosttyThemeSwitcher-v1.0.1-macos-arm64.zip
+dist/GhosttyThemeSwitcher-v1.0.1-macos-arm64.dmg
+```
+
 ## Usage
 
 1. Launch the app.
@@ -66,6 +85,8 @@ The bundled app appears in `dist/`.
 The first time the app reloads Ghostty, macOS will ask for **Automation** permission. If you accidentally deny it, re-enable it under:
 
 > System Settings → Privacy & Security → Automation → Ghostty Theme Switcher → Ghostty
+
+If you install from a downloaded release, give macOS permission after the first successful right-click launch. The app can still switch themes without this permission, but automatic Ghostty reloads will not work until you allow Automation.
 
 ### CLI mode
 
@@ -114,6 +135,18 @@ Issues and PRs are welcome. To run the tests:
 ```sh
 swift test
 ```
+
+## Manual release flow
+
+1. Run `zsh tools/build_release.sh`.
+2. Sanity-check the artifacts in `dist/`.
+3. Open the built app locally from `dist/` or after moving it into `/Applications`.
+4. Upload the generated `.zip` and `.dmg` files to GitHub Releases.
+5. In the release notes, call out:
+   - Apple Silicon only
+   - macOS 13+
+   - first launch requires right-click `Open`
+   - quarantine fix command if macOS says the app is damaged
 
 ## Acknowledgments
 

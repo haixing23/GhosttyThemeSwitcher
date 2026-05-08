@@ -1,4 +1,4 @@
-// swift-tools-version: 6.3
+// swift-tools-version: 6.0
 import PackageDescription
 
 let package = Package(
@@ -21,6 +21,5 @@ let package = Package(
             name: "GhosttyThemeSwitcherTests",
             dependencies: ["GhosttyThemeSwitcher"]
         ),
-    ],
-    swiftLanguageModes: [.v6]
+    ]
 )
