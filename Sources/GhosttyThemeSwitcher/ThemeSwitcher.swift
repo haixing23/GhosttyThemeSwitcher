@@ -132,13 +132,14 @@ struct Theme: Decodable, Identifiable, Equatable, Hashable {
 
 enum ThemeLibrary {
     static let all: [Theme] = loadThemes()
+    private static let bundleName = "GhosttyThemeSwitcher_GhosttyThemeSwitcher.bundle"
 
     static func theme(withId id: String) -> Theme? {
         all.first { $0.id == id }
     }
 
     private static func loadThemes() -> [Theme] {
-        guard let url = Bundle.module.url(forResource: "themes", withExtension: "json"),
+        guard let url = themesURL(),
               let data = try? Data(contentsOf: url) else {
             assertionFailure("themes.json not found in bundle")
             return []
@@ -149,6 +150,25 @@ enum ThemeLibrary {
             assertionFailure("Failed to decode themes.json: \(error)")
             return []
         }
+    }
+
+    private static func themesURL() -> URL? {
+        let runtimeCandidates = [
+            Bundle.main.resourceURL?
+                .appendingPathComponent(bundleName)
+                .appendingPathComponent("themes.json"),
+            Bundle.main.bundleURL
+                .appendingPathComponent(bundleName)
+                .appendingPathComponent("themes.json"),
+        ]
+
+        for candidate in runtimeCandidates {
+            if let candidate, FileManager.default.fileExists(atPath: candidate.path) {
+                return candidate
+            }
+        }
+
+        return Bundle.module.url(forResource: "themes", withExtension: "json")
     }
 }
 
