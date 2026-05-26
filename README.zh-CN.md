@@ -15,8 +15,10 @@
 
 ## 特性
 
-- 用真实的调色板预览全部四款 Catppuccin 风味 —— **Latte**、**Frappé**、**Macchiato**、**Mocha**。
+- 内置 512 款 Ghostty 兼容主题，支持搜索和真实调色板预览。
+- 支持单主题应用，也支持用 Ghostty 原生 `theme = light:...,dark:...` 语法配对浅色/深色主题，跟随 macOS 外观切换。
 - 点一下就改写 `config.ghostty`，并通过 AppleScript 自动让 Ghostty 重载配置。
+- 内置主题会在首次应用时按需安装到 Ghostty 的应用支持目录，再写入配置。
 - 每次写入前都会留一份 `config.ghostty.bak` 备份，避免误操作。
 - 双语界面（English / 简体中文）：默认跟随 macOS 系统语言，也可在 App 内通过 🌐 菜单手动切换。
 - 同一个可执行文件还自带命令行模式，方便脚本和 Shortcuts 调用。
@@ -78,7 +80,9 @@ dist/GhosttyThemeSwitcher-v1.0.1-macos-arm64.dmg
 ## 使用方法
 
 1. 打开 App。
-2. 点击任意主题卡片 —— 配置会立刻写入，运行中的 Ghostty 窗口也会马上重载新主题。
+2. 用搜索框筛选主题。
+3. 在「单主题」模式下，点击任意主题卡片即可应用。
+4. 在「跟随系统」模式下，分别选择浅色主题和深色主题，再点击「应用配对」。之后 Ghostty 会通过原生 light/dark 主题语法跟随 macOS 外观切换。
 
 ### 权限说明
 
@@ -94,13 +98,15 @@ dist/GhosttyThemeSwitcher-v1.0.1-macos-arm64.dmg
 
 ```sh
 "/Applications/Ghostty Theme Switcher.app/Contents/MacOS/Ghostty Theme Switcher" --apply mocha
+"/Applications/Ghostty Theme Switcher.app/Contents/MacOS/Ghostty Theme Switcher" --apply-system catppuccin-latte catppuccin-mocha
+"/Applications/Ghostty Theme Switcher.app/Contents/MacOS/Ghostty Theme Switcher" --list
 ```
 
-可选风味：`latte`、`frappe`、`macchiato`、`mocha`。
+`--list` 会输出制表符分隔的主题 `id`、标题、来源和深浅色分类。
 
 ## 工作原理
 
-App 会读取 `~/Library/Application Support/com.mitchellh.ghostty/config.ghostty`，替换（或追加）其中的 `theme = …` 行，然后用 AppleScript 通知正在运行的 Ghostty 重载配置。修改前的版本始终会保存为同目录下的 `config.ghostty.bak`。
+App 会读取 `~/Library/Application Support/com.mitchellh.ghostty/config.ghostty`，替换（或追加）其中的 `theme = …` 行，然后用 AppleScript 通知正在运行的 Ghostty 重载配置。修改前的版本始终会保存为同目录下的 `config.ghostty.bak`。内置主题首次应用时会复制到 `~/Library/Application Support/com.mitchellh.ghostty/themes/ghostty-theme-switcher/`。
 
 ## 项目结构
 
@@ -109,11 +115,14 @@ GhosttyThemeSwitcher/
 ├── Sources/
 │   └── GhosttyThemeSwitcher/         # SwiftUI 界面 + CLI 入口
 │       └── Resources/
-│           └── themes.json           # 主题数据
+│           ├── bundled-themes.json   # 生成的主题元数据
+│           ├── themes.json           # 兼容用主题元数据副本
+│           └── BundledThemes/        # 生成的 Ghostty 主题文件
 ├── Tests/
 │   └── GhosttyThemeSwitcherTests/
 ├── tools/
 │   ├── build_app.sh                  # 把 .app 打包到 dist/
+│   ├── generate_theme_catalog.py     # 重新生成内置 Ghostty 主题
 │   ├── build_icon.sh
 │   ├── Info.plist
 │   ├── AppIcon.icns

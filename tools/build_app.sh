@@ -45,6 +45,16 @@ if [ -z "$THEMES_BUNDLE_PATH" ]; then
     fail "themes.json was not copied into the app bundle"
 fi
 
+BUNDLED_THEMES_JSON="$(find "$APP_DIR/Contents/Resources" -maxdepth 2 -path '*.bundle/bundled-themes.json' -print -quit)"
+if [ -z "$BUNDLED_THEMES_JSON" ]; then
+    fail "bundled-themes.json was not copied into the app bundle"
+fi
+
+BUNDLED_THEME_FILE="$(find "$APP_DIR/Contents/Resources" -maxdepth 3 -path '*.bundle/*' -type f ! -name 'themes.json' ! -name 'bundled-themes.json' -print -quit)"
+if [ -z "$BUNDLED_THEME_FILE" ]; then
+    fail "BundledThemes files were not copied into the app bundle"
+fi
+
 archs="$(lipo -archs "$APP_DIR/Contents/MacOS/$APP_NAME")"
 if [ "$archs" != "arm64" ]; then
     fail "Expected an Apple Silicon build, got architecture(s): $archs"

@@ -15,8 +15,10 @@
 
 ## Features
 
-- Live previews of all four Catppuccin flavors — **Latte**, **Frappé**, **Macchiato**, **Mocha** — using their real palettes.
+- Searchable previews for 512 bundled Ghostty-compatible themes, generated from the Ghostty theme format.
+- Apply a single theme, or pair a light theme and a dark theme using Ghostty's native `theme = light:...,dark:...` syntax.
 - One click rewrites your `config.ghostty` and reloads Ghostty automatically (via AppleScript).
+- Bundled themes are installed on demand into Ghostty's application support directory before they are referenced.
 - A safety backup (`config.ghostty.bak`) is written before every change.
 - Bilingual UI (English / 简体中文): follows your macOS system language by default, switchable in-app from the 🌐 menu.
 - Optional CLI mode for scripts and shortcuts.
@@ -78,7 +80,9 @@ dist/GhosttyThemeSwitcher-v1.0.1-macos-arm64.dmg
 ## Usage
 
 1. Launch the app.
-2. Click any theme card — the change is written to your Ghostty config and a running Ghostty window reloads instantly.
+2. Use search to filter themes.
+3. In **Single** mode, click any theme card to apply it.
+4. In **Follow System** mode, choose one light theme and one dark theme, then click **Apply Pair**. Ghostty will follow macOS appearance using its native light/dark theme syntax.
 
 ### Permissions
 
@@ -94,13 +98,15 @@ The same binary doubles as a CLI, useful for shell scripts, Raycast, or Shortcut
 
 ```sh
 "/Applications/Ghostty Theme Switcher.app/Contents/MacOS/Ghostty Theme Switcher" --apply mocha
+"/Applications/Ghostty Theme Switcher.app/Contents/MacOS/Ghostty Theme Switcher" --apply-system catppuccin-latte catppuccin-mocha
+"/Applications/Ghostty Theme Switcher.app/Contents/MacOS/Ghostty Theme Switcher" --list
 ```
 
-Valid flavors: `latte`, `frappe`, `macchiato`, `mocha`.
+`--list` prints tab-separated `id`, title, source, and appearance values.
 
 ## How it works
 
-The app reads `~/Library/Application Support/com.mitchellh.ghostty/config.ghostty`, replaces (or appends) the `theme = …` line, then asks the running Ghostty to reload via AppleScript. The previous config is always saved as `config.ghostty.bak` next to it.
+The app reads `~/Library/Application Support/com.mitchellh.ghostty/config.ghostty`, replaces (or appends) the `theme = …` line, then asks the running Ghostty to reload via AppleScript. The previous config is always saved as `config.ghostty.bak` next to it. Bundled themes are copied into `~/Library/Application Support/com.mitchellh.ghostty/themes/ghostty-theme-switcher/` the first time they are applied.
 
 ## Project layout
 
@@ -109,11 +115,14 @@ GhosttyThemeSwitcher/
 ├── Sources/
 │   └── GhosttyThemeSwitcher/         # SwiftUI app + CLI entry point
 │       └── Resources/
-│           └── themes.json           # Theme data
+│           ├── bundled-themes.json   # Generated theme metadata
+│           ├── themes.json           # Compatibility copy of generated metadata
+│           └── BundledThemes/        # Generated Ghostty theme files
 ├── Tests/
 │   └── GhosttyThemeSwitcherTests/
 ├── tools/
 │   ├── build_app.sh                  # Builds the .app bundle into dist/
+│   ├── generate_theme_catalog.py     # Regenerates bundled Ghostty themes
 │   ├── build_icon.sh
 │   ├── Info.plist
 │   ├── AppIcon.icns
